@@ -36,7 +36,7 @@ namespace MarketPriceAPI.Controllers
             if (!assets.Items.Any())
             {
                 _logger.LogWarning("Assets not found for filter {FilterJson}", JsonSerializer.Serialize(filter));
-                return StatusCode(StatusCodes.Status404NotFound);
+                return StatusCode(StatusCodes.Status404NotFound, "No asset data found for the given parameters.");
             }
 
             _logger.LogInformation("Found {Count} assets for filter {FilterJson}", assets.Items.Count(), JsonSerializer.Serialize(filter));

@@ -37,11 +37,11 @@ namespace MarketPriceAPI.Controllers
             if (!historicalPrices.Items.Any())
             {
                 _logger.LogWarning("No historical market prices found for request: {RequestDto}", JsonSerializer.Serialize(requestDto));
-                return NotFound("No historical price data found for the given parameters.");
+                return StatusCode(StatusCodes.Status404NotFound, "No historical price data found for the given parameters.");
             }
 
             _logger.LogInformation("Successfully retrieved historical prices for request: {RequestDto}", JsonSerializer.Serialize(requestDto));
-            return Ok(historicalPrices);
+            return StatusCode(StatusCodes.Status200OK, historicalPrices);
         }
 
         /// <summary>
@@ -62,11 +62,11 @@ namespace MarketPriceAPI.Controllers
             if (lastLivePrice == null)
             {
                 _logger.LogWarning("No live market price found for assetId: {AssetId}", assetId);
-                return NotFound("No live price data found for the given asset.");
+                return StatusCode(StatusCodes.Status404NotFound, "No live price data found for the given asset.");
             }
 
             _logger.LogInformation("Successfully retrieved live price for assetId: {AssetId}", assetId);
-            return Ok(lastLivePrice);
+            return StatusCode(StatusCodes.Status200OK, lastLivePrice);
         }
     }
 }
